@@ -28,7 +28,7 @@ Built on the live TruthBounty product (truthbounty.xyz) with an existing communi
 
 **Links**
 ```
-Submission repo:  https://github.com/<you>/truthbounty-agora
+Submission repo:  https://github.com/Leihyn/truthbounty-agora
 Reputation engine (live product): https://truthbounty.xyz
 Demo video: <youtube unlisted>
 ```
