@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Decision {
   action: 'copy' | 'skip';
@@ -12,12 +12,19 @@ interface Decision {
   confidence: number;
   reasoning: string;
 }
+interface ArcProofs {
+  cctpSettlement: string;
+  cycleRegistry: string;
+  cycleAttestation: string;
+  explorer: string;
+}
 interface Cycle {
   cycleId: string;
   model: string;
   thesis: string;
   decisions: Decision[];
   allocatedUsd: number;
+  arcProofs?: ArcProofs;
 }
 
 const short = (a: string) => (a.length > 12 ? `${a.slice(0, 6)}…${a.slice(-4)}` : a);
@@ -27,6 +34,15 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [cycle, setCycle] = useState<Cycle | null>(null);
   const [err, setErr] = useState<string | null>(null);
+
+  // Load the latest recorded cycle on mount, so the page is meaningful without
+  // a server key. "Run agent cycle" triggers a fresh live run when one is set.
+  useEffect(() => {
+    fetch('/cycle-live.json')
+      .then((r) => r.json())
+      .then(setCycle)
+      .catch(() => {});
+  }, []);
 
   async function run() {
     setLoading(true);
@@ -79,6 +95,15 @@ export default function Home() {
       </div>
 
       {err && <div style={{ color: '#f87171', padding: 12, background: '#1f1414', borderRadius: 8 }}>{err}</div>}
+
+      {cycle?.arcProofs && (
+        <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', fontSize: 12, color: '#9a9ab0', margin: '0 0 18px' }}>
+          <span style={{ color: '#34d399' }}>● Live on Arc:</span>
+          <a style={{ color: '#8b5cf6' }} href={`${cycle.arcProofs.explorer}/tx/${cycle.arcProofs.cctpSettlement}`} target="_blank" rel="noreferrer">CCTP settlement ↗</a>
+          <a style={{ color: '#8b5cf6' }} href={`${cycle.arcProofs.explorer}/address/${cycle.arcProofs.cycleRegistry}`} target="_blank" rel="noreferrer">CycleRegistry ↗</a>
+          <a style={{ color: '#8b5cf6' }} href={`${cycle.arcProofs.explorer}/tx/${cycle.arcProofs.cycleAttestation}`} target="_blank" rel="noreferrer">cycle attestation ↗</a>
+        </div>
+      )}
 
       {cycle && (
         <>
