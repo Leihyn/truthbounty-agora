@@ -18,6 +18,14 @@ export const maxDuration = 120;
 
 export async function POST(req: NextRequest) {
   try {
+    // Hosted demo has no server key. Return a clean message instead of a raw
+    // SDK auth error; the dashboard keeps showing the latest recorded cycle.
+    if (!process.env.ANTHROPIC_API_KEY && !process.env.AGENT_COMPLETION_FILE) {
+      return NextResponse.json(
+        { error: 'Live runs need a server-side ANTHROPIC_API_KEY. Run it locally per the README. The latest recorded cycle is shown below.' },
+        { status: 503 },
+      );
+    }
     const body = await req.json().catch(() => ({}));
     // Prefer the agent's REAL on-chain USDC book; fall back to a requested size.
     let bookUsd = Number(body.bookUsd ?? 1000);

@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   TruthBounty Agora — terminal / Bloomberg-dark design system
+   TruthBounty Agora · terminal / Bloomberg-dark design system
    ───────────────────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -26,7 +26,7 @@
   --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
   --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;
 
-  /* radius — only two */
+  /* radius: only two */
   --r-sm: 2px;
   --r:    6px;
 

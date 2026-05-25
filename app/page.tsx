@@ -57,7 +57,7 @@ export default function Home() {
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || 'cycle failed');
       // Carry the proof strip forward, and surface the FRESH attestation tx this
-      // run just wrote to Arc — so a live run produces a new clickable proof.
+      // run just wrote to Arc, so a live run produces a new clickable proof.
       setCycle({
         ...j,
         arcProofs: cycle?.arcProofs
