@@ -28,8 +28,10 @@ Built on the live TruthBounty product (truthbounty.xyz) with an existing communi
 
 **Links**
 ```
-Submission repo:  https://github.com/Leihyn/truthbounty-agora
+Submission repo:   https://github.com/Leihyn/truthbounty-agora
+Live agent dashboard: https://truthbounty-agora.vercel.app
 Reputation engine (live product): https://truthbounty.xyz
+Arc explorer (agent wallet): https://testnet.arcscan.app/address/0xed1d7aeD831dC84759c18b022cC7F0522A538269
 Demo video: <youtube unlisted>
 ```
 
