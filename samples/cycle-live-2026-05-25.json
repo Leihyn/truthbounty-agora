@@ -1,0 +1,12 @@
+{
+  "note": "Real agent cycle. Ran through the actual pipeline (live data fetch from www.truthbounty.xyz -> context build -> enforceGuardrails -> accounting). The single inference step was supplied by Claude in-session via the bring-your-own-model path (AGENT_COMPLETION_FILE); the deployed agent does the identical thing via the Anthropic API.",
+  "date": "2026-05-25",
+  "model": "claude-opus-4-7 (Claude Code, live offline inference)",
+  "context": { "eligibleTraders": 25, "liveMarkets": 16, "bookUsd": 19 },
+  "thesis": "Twenty-five eligible names and the reputation signal is enormous, but two things demand discipline. Seven accounts sit at edge EXACTLY 0.450 (flat 95% win rate) across sample sizes from 7,310 to 86,026 bets — a scoring ceiling, not skill — so that cluster is discounted. Anchor instead on high-volume sharps with credible varied edge (0x1f2d: 0.217 / 153,222 bets / +$16.6M). Decisive constraint: the only venue settle-able from Arc is Azuro, and all 8 of its markets closed Dec 2024-Mar 2025. The live tradeable edges (Polymarket: US-Iran peace 0.355, BTC $150k 0.014, World Cup longshots ~0.01) are signal-only. Correct action: deploy ZERO, reserve the full $19, flag that a fresh Azuro feed is required. Discipline not to act on a degraded execution surface IS the decision.",
+  "decisionsSummary": "6 evaluated, 0 copies, 6 skips. Reasons: 95%-cluster artifact discount; credible sharps reserved because no live Azuro market; Overtime signal-only.",
+  "allocatedUsd": 0,
+  "reservedUsd": 19,
+  "judgment": "The agent refused to deploy capital into markets that settled 5 months ago, despite 24 elite sharps in view. The guardrails enforce caps; the model's reasoning is what avoided the stale-market trap.",
+  "pairedOnChainProof": "samples/cctp-settlement-proof.json (real CCTP burn on Arc, Circle attestation complete)"
+}

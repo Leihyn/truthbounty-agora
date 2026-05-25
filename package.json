@@ -1,0 +1,27 @@
+{
+  "name": "truthbounty-agora",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Autonomous prediction-market copy-allocation agent. Reputation from TruthBounty, settlement in USDC on Arc via Circle CCTP + Gateway + Paymaster.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "agent:cycle": "tsx scripts/run-cycle.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "next": "14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  }
+}

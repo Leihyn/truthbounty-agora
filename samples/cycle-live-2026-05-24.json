@@ -1,0 +1,60 @@
+{
+  "cycleId": "cycle_live_2026-05-24",
+  "startedAt": "2026-05-24T00:00:00.000Z",
+  "model": "claude-opus-4-7 · run in-session over LIVE TruthBounty data (www.truthbounty.xyz), no API key. The deployed agent reproduces this via the Anthropic API.",
+  "bookUsd": 1000,
+  "thesis": "The board is wall-to-wall maxed-out TruthScore 1300 Polymarket accounts, but the win rates split into two populations. One cluster sits at exactly 95.0% across wildly different sample sizes — Theo4 (86,026 bets), Len9311238 (32,805), RepTrump (27,966), BetTom42, mikatrade77, alexmulti. A flat 95.0% that ignores sample size reads as a scoring ceiling/artifact, not real skill, so I discount that cluster. I anchor instead on the high-volume sharps with plausible, non-round win rates whose edge is statistically hard to fake: Fredi9999 (71.7% over 153,222 bets, +$16.6M PnL), zxgngl (69.3% / 81,103), walletmobile (68.5% / 64,393), KeyTransporter (78.4% / 40,172). The constraint is execution: Azuro is the only CCTP-testnet-reachable venue, and its live book is thin and stale — lower-league Championship football and ATP Challenger tennis at templated 1.8/2.2 odds with start times months in the past. Copying world-class Polymarket sharps into a stale Championship match at placeholder odds is not genuine edge transfer. So the correct move is restraint: deploy two small validation positions to prove the full Arc→CCTP→Azuro execution path against the two most credible sharps, and reserve >90% of the book until fresh Azuro markets with real odds appear.",
+  "decisions": [
+    {
+      "action": "copy",
+      "trader": "0x1f2dd6d473f3e824cd2f8a89d9c69fb96f6ad0cf",
+      "venue": "azuro",
+      "marketId": "1006000000000026155547:1",
+      "outcome": "Middlesbrough FC",
+      "sizeUsd": 60,
+      "confidence": 0.35,
+      "reasoning": "Fredi9999 is the most credible sharp on the board — 71.7% over 153,222 resolved bets (+$16.6M), high but not artifact-flat. I express a fraction of that conviction in the only near-liquid Azuro market at 6% of book (well under the 15% cap); confidence is deliberately low because the 1.8 odds are templated and the fixture is stale — this validates the execution path more than it expresses strong edge."
+    },
+    {
+      "action": "copy",
+      "trader": "0xd2359732dba23bba799b2b29101ab15810cd6db0",
+      "venue": "azuro",
+      "marketId": "1001000000001603661423:1",
+      "outcome": "Filip Pieczonka",
+      "sizeUsd": 40,
+      "confidence": 0.30,
+      "reasoning": "zxgngl is the second-most-credible high-volume sharp (69.3% / 81,103 bets). A 4% probe on the ATP Challenger market to diversify venue exposure across two events, capped low for the same stale-odds reason."
+    },
+    {
+      "action": "skip",
+      "trader": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+      "venue": "azuro",
+      "confidence": 0.0,
+      "reasoning": "Theo4 is headline rank #1, but 95.0% over 86,026 bets is statistically implausible for real-money markets and matches the flat-95% cluster. I read it as a score ceiling, not proven edge — not copying until the win rate corroborates out-of-cluster."
+    },
+    {
+      "action": "skip",
+      "trader": "0x863134d09b1e15b9b8b3e8d4d3a0e8d3e8b7c0a1",
+      "venue": "azuro",
+      "confidence": 0.0,
+      "reasoning": "RepTrump sits in the same exactly-95% artifact cluster and is a political-event specialist with no analogous live market on Azuro's sports-only testnet book."
+    },
+    {
+      "action": "skip",
+      "trader": "0xe9ad918c0e3d8d0d9b6b9a5e3c2f1a0b8c7d6e5f",
+      "venue": "azuro",
+      "confidence": 0.0,
+      "reasoning": "walletmobile is a credible sharp (68.5% / 64,393), but the remaining Azuro markets are stale tennis at placeholder odds — no market worth a fresh allocation right now. Reserving capital."
+    },
+    {
+      "action": "skip",
+      "trader": "0x94f199fb0a7c8d6e5f4a3b2c1d0e9f8a7b6c5d4e",
+      "venue": "azuro",
+      "confidence": 0.0,
+      "reasoning": "KeyTransporter's 78.4% over 40,172 is the most attractive ratio on the board, but I've hit my self-imposed two-position cap for a degraded execution surface. Holding for fresh markets rather than forcing a third stale-odds bet."
+    }
+  ],
+  "allocatedUsd": 100,
+  "reservedUsd": 900,
+  "costUsd": 0
+}

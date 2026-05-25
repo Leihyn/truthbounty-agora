@@ -1,0 +1,26 @@
+{
+  "note": "Real CCTP V2 settlement originating on Arc Testnet. Verifiable on-chain.",
+  "date": "2026-05-25",
+  "chain": "Arc Testnet",
+  "chainId": 5042002,
+  "explorer": "https://testnet.arcscan.app",
+  "agent": "0xed1d7aeD831dC84759c18b022cC7F0522A538269",
+  "flow": "burn USDC on Arc (domain 26) -> Circle attestation -> mintable on Polygon Amoy (domain 7)",
+  "transactions": {
+    "approve": "0x4843dc2eb1e8b1d16b0df8cd2fe80b41f22d29e4066cc59b0fda88022f477b1e",
+    "depositForBurn": "0xead3dba28afb79f71c5470545af4eb82cf4f7eb1a888b0de26c8815fa3001eae",
+    "depositForBurnBlock": 43985482
+  },
+  "amountUsdc": 1.0,
+  "gasPaidIn": "USDC (Arc native gas) — ~0.0037 USDC, balance 20.0 -> 18.9963",
+  "circleAttestation": {
+    "service": "iris-api-sandbox.circle.com /v2/messages/26",
+    "status": "complete",
+    "eventNonce": "0x7953367de9c93f0382c6832aab8014911f388e5a5589aa4fc74895341671ae2a"
+  },
+  "contracts": {
+    "usdc": "0x3600000000000000000000000000000000000000",
+    "tokenMessengerV2": "0x8FE6B999Dc680CcFDD5Bf7EB0974218be2542DAA",
+    "messageTransmitterV2": "0xE737e5cEBEEBa77EFE34D4aa090756590b1CE275"
+  }
+}
