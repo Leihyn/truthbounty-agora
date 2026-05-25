@@ -52,7 +52,7 @@ Live on Arc Testnet today:
 
 Live dashboard: https://truthbounty-agora.vercel.app
 Repo: https://github.com/Leihyn/truthbounty-agora
-Video: <youtube url>
+Video: https://youtu.be/7YF9nR6xPms
 ```
 
 ---
@@ -80,5 +80,5 @@ Honest note: agent is early, traction is the existing TruthBounty brand as distr
 - **Project:** TruthBounty Agora
 - **GitHub:** https://github.com/Leihyn/truthbounty-agora
 - **Live:** https://truthbounty-agora.vercel.app
-- **Video:** <youtube url>
+- **Video:** https://youtu.be/7YF9nR6xPms
 - **Short/long desc + judging one-liners:** see `SUBMISSION.md`
