@@ -27,7 +27,8 @@ interface Cycle {
   arcProofs?: ArcProofs;
 }
 
-const short = (a: string) => (a.length > 12 ? `${a.slice(0, 6)}…${a.slice(-4)}` : a);
+const short = (a: string) => (a.length > 14 ? `${a.slice(0, 6)}…${a.slice(-4)}` : a);
+const txShort = (h: string) => `${h.slice(0, 8)}…${h.slice(-4)}`;
 
 export default function Home() {
   const [book, setBook] = useState(1000);
@@ -36,7 +37,7 @@ export default function Home() {
   const [err, setErr] = useState<string | null>(null);
 
   // Load the latest recorded cycle on mount, so the page is meaningful without
-  // a server key. "Run agent cycle" triggers a fresh live run when one is set.
+  // a server key. "RUN CYCLE" triggers a fresh live run when one is configured.
   useEffect(() => {
     fetch('/cycle-live.json')
       .then((r) => r.json())
@@ -47,7 +48,6 @@ export default function Home() {
   async function run() {
     setLoading(true);
     setErr(null);
-    setCycle(null);
     try {
       const r = await fetch('/api/agent/run', {
         method: 'POST',
@@ -66,82 +66,120 @@ export default function Home() {
 
   const copies = cycle?.decisions.filter((d) => d.action === 'copy') ?? [];
   const skips = cycle?.decisions.filter((d) => d.action === 'skip') ?? [];
+  const p = cycle?.arcProofs;
 
   return (
-    <main style={{ maxWidth: 860, margin: '0 auto', padding: '48px 24px' }}>
-      <h1 style={{ fontSize: 26, marginBottom: 4 }}>
-        TruthBounty <span style={{ color: '#8b5cf6' }}>Agora</span>
-      </h1>
-      <p style={{ color: '#9a9ab0', marginTop: 0, lineHeight: 1.5 }}>
-        An autonomous agent that copies the <em>provably</em> best prediction-market traders.
-        Reputation from TruthBounty; a USDC book on Arc; real bets bridged via Circle CCTP.
+    <main className="wrap">
+      <header className="statusbar">
+        <div className="brand">
+          TRUTHBOUNTY <span className="amber">AGORA</span>
+        </div>
+        <div className="status">
+          <span className="dot" aria-hidden /> LIVE · ARC TESTNET · CHAIN 5042002
+        </div>
+      </header>
+
+      <p className="lede">
+        An autonomous agent that copies the <em>provably</em>-best prediction-market traders.
+        Reputation from TruthBounty · a USDC book on Arc · settled via Circle CCTP.
       </p>
 
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center', margin: '24px 0' }}>
-        <label style={{ color: '#9a9ab0' }}>Book (USDC on Arc)</label>
+      <div className="cmd">
+        <span className="prompt">$</span>
+        <span className="cmd-text">run cycle --book</span>
         <input
+          className="input"
           type="number"
+          aria-label="Book size in USDC on Arc"
           value={book}
           onChange={(e) => setBook(Number(e.target.value))}
-          style={{ width: 110, padding: '8px 10px', background: '#15151f', color: '#e6e6f0', border: '1px solid #2a2a3a', borderRadius: 8 }}
         />
-        <button
-          onClick={run}
-          disabled={loading}
-          style={{ padding: '9px 18px', background: loading ? '#3a3a4a' : '#8b5cf6', color: 'white', border: 'none', borderRadius: 8, cursor: loading ? 'default' : 'pointer', fontWeight: 600 }}
-        >
-          {loading ? 'Agent thinking…' : 'Run agent cycle'}
+        <button className="btn" onClick={run} disabled={loading}>
+          {loading ? 'AGENT THINKING…' : 'RUN CYCLE'}
         </button>
       </div>
 
-      {err && <div style={{ color: '#f87171', padding: 12, background: '#1f1414', borderRadius: 8 }}>{err}</div>}
+      {err && <div className="error">! {err}</div>}
 
-      {cycle?.arcProofs && (
-        <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', fontSize: 12, color: '#9a9ab0', margin: '0 0 18px' }}>
-          <span style={{ color: '#34d399' }}>● Live on Arc:</span>
-          <a style={{ color: '#8b5cf6' }} href={`${cycle.arcProofs.explorer}/tx/${cycle.arcProofs.cctpSettlement}`} target="_blank" rel="noreferrer">CCTP settlement ↗</a>
-          <a style={{ color: '#8b5cf6' }} href={`${cycle.arcProofs.explorer}/address/${cycle.arcProofs.cycleRegistry}`} target="_blank" rel="noreferrer">CycleRegistry ↗</a>
-          <a style={{ color: '#8b5cf6' }} href={`${cycle.arcProofs.explorer}/tx/${cycle.arcProofs.cycleAttestation}`} target="_blank" rel="noreferrer">cycle attestation ↗</a>
+      {p && (
+        <div className="trust">
+          <span className="trust-label">✓ VERIFIED ON ARC</span>
+          <a className="trust-item" href={`${p.explorer}/tx/${p.cctpSettlement}`} target="_blank" rel="noreferrer">
+            CCTP SETTLEMENT <code>{txShort(p.cctpSettlement)}</code> ↗
+          </a>
+          <a className="trust-item" href={`${p.explorer}/address/${p.cycleRegistry}`} target="_blank" rel="noreferrer">
+            CYCLEREGISTRY <code>{txShort(p.cycleRegistry)}</code> ↗
+          </a>
+          <a className="trust-item" href={`${p.explorer}/tx/${p.cycleAttestation}`} target="_blank" rel="noreferrer">
+            ATTESTATION <code>{txShort(p.cycleAttestation)}</code> ↗
+          </a>
+        </div>
+      )}
+
+      {!cycle && !err && (
+        <div className="empty">
+          LOADING LATEST CYCLE<span className="cursor" />
         </div>
       )}
 
       {cycle && (
         <>
-          <section style={{ background: '#13131c', border: '1px solid #232333', borderRadius: 12, padding: 18, marginBottom: 18 }}>
-            <div style={{ color: '#8b5cf6', fontSize: 12, letterSpacing: 1, marginBottom: 6 }}>AGENT THESIS · {cycle.model}</div>
-            <div style={{ lineHeight: 1.6 }}>{cycle.thesis}</div>
-            <div style={{ color: '#9a9ab0', marginTop: 10, fontSize: 13 }}>
-              Allocated <b style={{ color: '#34d399' }}>${cycle.allocatedUsd.toFixed(2)}</b> across {copies.length} positions · {skips.length} skipped
+          <section className="panel">
+            <div className="panel-head">
+              <span className="label">
+                AGENT THESIS<span className="cursor" />
+              </span>
+              <span className="badge">{cycle.model}</span>
             </div>
+            <p className="thesis">{cycle.thesis}</p>
           </section>
 
-          {copies.map((d, i) => (
-            <DecisionRow key={`c${i}`} d={d} kind="copy" />
-          ))}
-          {skips.map((d, i) => (
-            <DecisionRow key={`s${i}`} d={d} kind="skip" />
-          ))}
+          <div className="metrics">
+            <div className="metric">
+              <div className="m-label">ALLOCATED</div>
+              <div className={`m-value ${cycle.allocatedUsd > 0 ? 'green' : ''}`}>
+                ${cycle.allocatedUsd.toFixed(0)}
+              </div>
+            </div>
+            <div className="metric">
+              <div className="m-label">POSITIONS</div>
+              <div className="m-value green">{copies.length}</div>
+            </div>
+            <div className="metric">
+              <div className="m-label">EVALUATED</div>
+              <div className="m-value">{cycle.decisions.length}</div>
+            </div>
+            <div className="metric">
+              <div className="m-label">SKIPPED</div>
+              <div className="m-value amber">{skips.length}</div>
+            </div>
+          </div>
+
+          <div className="feed-head">DECISION FEED</div>
+          <div className="feed">
+            {[...copies, ...skips].map((d, i) => (
+              <DecisionRow key={`${d.action}-${i}`} d={d} index={i} />
+            ))}
+          </div>
         </>
       )}
     </main>
   );
 }
 
-function DecisionRow({ d, kind }: { d: Decision; kind: 'copy' | 'skip' }) {
-  const isCopy = kind === 'copy';
+function DecisionRow({ d, index }: { d: Decision; index: number }) {
+  const isCopy = d.action === 'copy';
   return (
-    <div style={{ display: 'flex', gap: 12, padding: 14, marginBottom: 8, background: '#101019', border: `1px solid ${isCopy ? '#1e3a2e' : '#23232f'}`, borderRadius: 10 }}>
-      <div style={{ width: 56, flexShrink: 0, color: isCopy ? '#34d399' : '#6b6b80', fontWeight: 700, fontSize: 13 }}>
-        {isCopy ? `COPY` : 'SKIP'}
-      </div>
-      <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 13 }}>
-          <span style={{ color: '#e6e6f0' }}>{short(d.trader)}</span>
-          <span style={{ color: '#6b6b80' }}> · {d.venue}</span>
-          {isCopy && d.sizeUsd ? <span style={{ color: '#34d399' }}> · ${d.sizeUsd.toFixed(2)}</span> : null}
-          <span style={{ color: '#6b6b80' }}> · conf {(d.confidence * 100).toFixed(0)}%</span>
+    <div className={`row ${isCopy ? 'copy' : 'skip'}`} style={{ ['--i' as string]: index } as React.CSSProperties}>
+      <div className="action">{isCopy ? 'COPY' : 'SKIP'}</div>
+      <div>
+        <div className="row-meta">
+          <code className="trader">{short(d.trader)}</code>
+          <span className="tag">{d.venue}</span>
+          {isCopy && d.sizeUsd ? <span className="size">${d.sizeUsd.toFixed(2)}</span> : null}
+          <span className="conf">CONF {(d.confidence * 100).toFixed(0)}%</span>
         </div>
-        <div style={{ color: '#9a9ab0', fontSize: 13, marginTop: 4, lineHeight: 1.5 }}>{d.reasoning}</div>
+        <div className="reasoning">{d.reasoning}</div>
       </div>
     </div>
   );
