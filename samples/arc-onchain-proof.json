@@ -1,0 +1,26 @@
+{
+  "note": "All real, verifiable Arc Testnet activity by the agent. Explorer: https://testnet.arcscan.app",
+  "chain": "Arc Testnet",
+  "chainId": 5042002,
+  "agent": "0xed1d7aeD831dC84759c18b022cC7F0522A538269",
+  "gasPaidIn": "USDC (Arc native gas token)",
+  "circleToolsProven": {
+    "CCTP_V2": {
+      "depositForBurn": "0xead3dba28afb79f71c5470545af4eb82cf4f7eb1a888b0de26c8815fa3001eae",
+      "attestation": "complete (iris-api-sandbox.circle.com /v2/messages/26)",
+      "detail": "samples/cctp-settlement-proof.json"
+    },
+    "Contracts": {
+      "CycleRegistry": "0x68C36965fEA665fB53Fb0590aCcD4E99B64c49FB",
+      "deployTx": "0x4e8703ad53f6b4a72e89c0f395035e4815b671043b3fb675298760776b9b8499",
+      "purpose": "Attests each decision cycle on Arc: thesis hash + allocation outcome (reasoning trace as on-chain artifact, cf. Arc Research #01)"
+    },
+    "USDC": "native gas + ERC-20 (0x3600...0000, 6 decimals)"
+  },
+  "cycleAttestations": [
+    { "tx": "0x43a731f090c57a8647909450da22d6bc8a05b4a4db645aceea3b39e9a68116d8", "via": "direct", "allocatedUsd": 0, "reservedUsd": 19, "skips": 6 },
+    { "tx": "0x4cb504509e892c92e942e2183b3a8ef6115b937ee34734564f06616f64dfe087", "via": "agent pipeline (run-cycle + attest.ts)", "allocatedUsd": 0, "reservedUsd": 18, "skips": 6 }
+  ],
+  "autonomy": "scripts/loop.ts runs cycles on an interval, attesting each to Arc — continuous recurring settlement, not a one-shot.",
+  "usycNote": "USYC park (idle-capital yield on Arc) is implemented intent but BLOCKED on Circle's institutional allowlist (testnet USYC requires an approval ticket; mainnet requires non-US institutional KYC). Not faked — the agent reserves in USDC on Arc today and would route to USYC once allowlisted."
+}

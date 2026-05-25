@@ -4,6 +4,7 @@
 
 import { buildAgentContext } from '../lib/agent/context';
 import { runAgentCycle } from '../lib/agent/agent';
+import { attestCycle } from '../lib/agent/attest';
 
 async function main() {
   const baseUrl = process.env.TRUTHBOUNTY_API_URL || 'http://localhost:3000';
@@ -22,7 +23,11 @@ async function main() {
         `conf=${(d.confidence * 100).toFixed(0)}%  — ${d.reasoning}`,
     );
   }
-  console.log(`\n> allocated $${res.allocatedUsd.toFixed(2)} (${res.model})`);
+  const tx = await attestCycle(res, ctx.bookUsd);
+  console.log(
+    `\n> allocated $${res.allocatedUsd.toFixed(2)} (${res.model})` +
+      (tx ? `\n> attested on Arc: ${tx}` : ''),
+  );
 }
 
 main().catch((e) => {

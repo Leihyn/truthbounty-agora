@@ -1,6 +1,9 @@
 /node_modules
 /.next
 /out
+/onchain/out
+/onchain/cache
+/onchain/broadcast
 .env
 .env.local
 *.tsbuildinfo

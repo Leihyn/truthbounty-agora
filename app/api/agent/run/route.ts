@@ -11,6 +11,7 @@ import { buildAgentContext } from '@/lib/agent/context';
 import { runAgentCycle } from '@/lib/agent/agent';
 import { charge, totalCost, Intelligence, type PaymentReceipt } from '@/lib/agent/payments';
 import { getBook } from '@/lib/agent/book';
+import { attestCycle } from '@/lib/agent/attest';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
@@ -46,6 +47,14 @@ export async function POST(req: NextRequest) {
       console.warn('intelligence charge skipped:', (e as Error).message);
     }
 
+    // Attest the cycle on Arc (CycleRegistry) — reasoning-trace hash + outcome.
+    let attestTxHash: string | undefined;
+    try {
+      attestTxHash = await attestCycle(result, bookUsd);
+    } catch (e) {
+      console.warn('cycle attest skipped:', (e as Error).message);
+    }
+
     // Best-effort persistence — never fail the cycle on a logging hiccup.
     try {
       const supabase = createClient(
@@ -65,7 +74,7 @@ export async function POST(req: NextRequest) {
       console.warn('agent_cycles insert skipped:', (e as Error).message);
     }
 
-    return NextResponse.json({ ...result, receipts });
+    return NextResponse.json({ ...result, receipts, attestTxHash });
   } catch (e) {
     return NextResponse.json({ error: (e as Error).message }, { status: 500 });
   }

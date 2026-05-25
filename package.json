@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "agent:cycle": "tsx scripts/run-cycle.ts"
+    "agent:cycle": "tsx scripts/run-cycle.ts",
+    "agent:loop": "tsx scripts/loop.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.0",

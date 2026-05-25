@@ -54,6 +54,8 @@ The decision loop runs with just `ANTHROPIC_API_KEY`. Live bridged execution add
 - **CCTP V2** — burn-and-mint USDC Arc → Polygon Amoy. **Live proof:** real `depositForBurn` on Arc Testnet [`0xead3dba2…3001eae`](https://testnet.arcscan.app/tx/0xead3dba28afb79f71c5470545af4eb82cf4f7eb1a888b0de26c8815fa3001eae), Circle attestation `status: complete`. See `samples/cctp-settlement-proof.json`.
 - **Native USDC gas** — that burn cost ~0.0037 **USDC** in gas (Arc's native gas token is USDC; balance 20.0 → 18.9963). The agent holds and spends only USDC.
 - **Gateway** — on-chain GatewayWallet/GatewayMinter on Arc + USDC nanopayments (EIP-3009) per intelligence call.
+- **Contracts** — our `CycleRegistry` deployed on Arc ([`0x68C3…49FB`](https://testnet.arcscan.app/address/0x68C36965fEA665fB53Fb0590aCcD4E99B64c49FB)). Every decision cycle attests its reasoning-trace hash + allocation outcome on-chain — the trace as a verifiable artifact (Arc Research #01), and a real recurring Arc settlement per cycle (e.g. `0x4cb50450…`). `scripts/loop.ts` runs this autonomously on an interval.
+- **USYC (honest caveat)** — the agent's natural home for *reserved* capital is USYC (idle-capital yield on Arc). It's wired as intent but blocked on Circle's institutional allowlist (testnet USYC needs an approval ticket; mainnet needs non-US institutional KYC). Today it reserves in USDC on Arc; it routes to USYC once allowlisted. See `samples/arc-onchain-proof.json`.
 
 ## Troubleshooting
 
