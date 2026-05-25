@@ -98,7 +98,7 @@ em { font-style: normal; color: var(--amber); }
 .prompt { color: var(--green); font-weight: 700; }
 .cmd-text { color: var(--text-faint); font-size: var(--t-sm); letter-spacing: 0.02em; }
 .input {
-  width: 92px; padding: var(--sp-2) var(--sp-3);
+  width: 92px; padding: var(--sp-2) var(--sp-3); min-height: 44px;
   background: var(--bg); color: var(--text);
   border: 1px solid var(--line-2); border-radius: var(--r-sm);
   font-family: var(--mono); font-size: var(--t-md); font-feature-settings: "tnum" 1;
@@ -107,7 +107,7 @@ em { font-style: normal; color: var(--amber); }
 .input:focus { outline: none; border-color: var(--amber-2); box-shadow: 0 0 0 3px rgba(245,177,61,0.18); }
 .btn {
   margin-left: auto;
-  padding: var(--sp-2) var(--sp-4); min-height: 38px;
+  padding: var(--sp-2) var(--sp-4); min-height: 44px;
   background: var(--amber); color: #1a1205;
   border: 1px solid var(--amber); border-radius: var(--r-sm);
   font-family: var(--mono); font-size: var(--t-sm); font-weight: 700; letter-spacing: 0.08em;
