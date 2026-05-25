@@ -1,7 +1,7 @@
 # Agora Agents Hackathon — Submission
 
 **Project:** TruthBounty Agora
-**RFBs:** #2 Prediction-Market Trader Intelligence · #6 Social Trading Intelligence
+**RFB:** #6 Social Trading Intelligence (primary, 5/5 fit) · #2 Prediction-Market Trader Intelligence (adjacent)
 
 ---
 
@@ -45,7 +45,7 @@ Demo video: <youtube unlisted>
 
 **Circle tool usage (20%)** — Proven on-chain, not checkbox (see `samples/arc-onchain-proof.json`). **CCTP V2:** real `depositForBurn` on Arc (tx `0xead3dba2…`, attestation `status: complete`). **Contracts:** our `CycleRegistry` deployed on Arc (`0x68C3…49FB`) attests every cycle's reasoning-trace hash + outcome on-chain — real recurring Arc settlement (`0x43a731f0…`, `0x4cb50450…`), and the reasoning trace as a verifiable artifact (Arc Research #01). **Native USDC gas:** every tx costs fractions of a cent in USDC — Arc's gas token *is* USDC, so the agent holds only USDC. **Gateway:** on-chain wallet/minter + per-intelligence USDC nanopayments (EIP-3009). **USYC:** the natural home for reserved capital (idle yield) — wired as intent, blocked only on Circle's institutional allowlist; the agent reserves in USDC on Arc today and routes to USYC once allowlisted (stated honestly, not faked).
 
-**Innovation (20%)** — A reputation-weighted, self-funding autonomous market participant: it pays for the intelligence it consumes and must earn more than it spends. Reputation is cross-platform (Polymarket, Azuro, Overtime, PancakeSwap); execution settles in dollars on Arc.
+**Innovation (20%)** — A reputation-weighted, self-funding autonomous market participant: it pays for the intelligence it consumes and must earn more than it spends. Reputation is cross-platform (Polymarket, Azuro, Overtime, PancakeSwap); settlement is in dollars on Arc. We also built the hackathon's own Research #01 thesis — *"the reasoning trace is the product"* — for real: every cycle hashes its reasoning and attests it on-chain via our `CycleRegistry` on Arc (the affordable on-chain trace the research calls for). The 95%-win-rate-artifact catch is live strategy-degradation detection, the heart of RFB #6.
 
 ---
 
