@@ -26,11 +26,11 @@ Reputation engine: https://truthbounty.xyz
 
 Chapters:
 0:00 The problem
-0:15 The agent reasons (catches the 95% artifact)
-1:40 Settles on Arc, CCTP, USDC-native gas
-2:30 A market participant disciplined enough to wait
+0:23 The agent reasons, and refuses to act
+0:57 Settles on Arc (CCTP, USDC-native gas)
+1:12 Real on-chain proof
 
-Built for the Agora Agents Hackathon (Canteen × Circle). RFB #2 + #6.
+Built for the Agora Agents Hackathon (Canteen × Circle). RFB #6 (Social Trading Intelligence) and #2.
 Stack: Arc · Circle CCTP / Gateway / Contracts · USDC · TruthBounty reputation engine · Claude.
 ```
 
